@@ -12,6 +12,7 @@ Backend: https://best-book-buddies.onrender.com/
  
 
 ## Directory Structure
+```
 my-app/
 ├── backend/
 │   ├── config/
@@ -42,6 +43,8 @@ my-app/
     ├── index.html
     ├── login.html
     └── register.html
+```
+
 
 
 
