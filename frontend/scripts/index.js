@@ -1,7 +1,8 @@
+const BASEURL = "https://best-book-buddies.onrender.com"
 
 async function getAllTasks() {
     try {
-        const response = await fetch('http://localhost:8090/tasks', {
+        const response = await fetch(`${BASEURL}/tasks`, {
             method: 'GET',
             headers: {
                 'authentication': `Bearer ${localStorage.getItem('taskmanagerToken')}` // Assuming you store the JWT token in localStorage after login
@@ -41,7 +42,7 @@ async function handleFormSubmit(e) {
             dueDate,
         })
         console.log(payload);
-        const response = await fetch('http://localhost:8090/tasks', {
+        const response = await fetch(`${BASEURL}/tasks`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -104,7 +105,7 @@ async function handleUpdateTask(e, id) {
         priority,
         dueDate,
     })
-    const response = await fetch(`http://localhost:8090/tasks/${id}`, {
+    const response = await fetch(`${BASEURL}/tasks/${id}`, {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
@@ -114,13 +115,13 @@ async function handleUpdateTask(e, id) {
         body: payload
     });
     const data = response.json();
-    console.log(data);
-
+    // console.log(data);
+    alert('Task updated successfully');
     window.location.reload();
 }
 
 async function deleteTask(id) {
-    const response = await fetch(`http://localhost:8090/tasks/${id}`, {
+    const response = await fetch(`${BASEURL}/tasks/${id}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -131,6 +132,7 @@ async function deleteTask(id) {
 
     const data = await response.json();
     // console.log(data);
+    alert('Task deleted successfully');
     window.location.reload();
 }
 
@@ -142,6 +144,8 @@ function renderTasks(tasks, status) {
         listContainer = document.querySelector("#inProgress");
     } else if (status === 'Done') {
         listContainer = document.querySelector("#done");
+    } else {
+        listContainer = document.querySelector('#filterList')
     }
 
     listContainer.innerHTML = '';
@@ -174,14 +178,45 @@ function renderTasks(tasks, status) {
         })
 
         const taskDetail = document.createElement('div');
+        taskDetail.classList.add('task-detail');
         taskDetail.append(status, priority, dueDate)
         const btnWrapper = document.createElement('div');
+        btnWrapper.classList.add('task-buttons')
         btnWrapper.append(editBtn, deleteBtn);
 
         taskElement.append(title, taskDetail, desctiption, btnWrapper)
         listContainer.append(taskElement);
     })
 }
+
+
+async function filterTaskList() {
+    const statusFilter = document.querySelector('#statusFilter').value;
+    const priorityFilter = document.querySelector('#priorityFilter').value;
+    console.log(statusFilter, priorityFilter)
+    let url = `${BASEURL}/tasks/filter?status=${statusFilter}&priority=${priorityFilter}`
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'authentication': `Bearer ${localStorage.getItem('taskmanagerToken')}`
+        }
+    });
+    const data = await response.json();
+    console.log(data);
+    // return data;
+    renderTasks(data, "")
+
+}
+
+const statusFilter = document.querySelector('#statusFilter');
+statusFilter.addEventListener('change', (e)=>{
+    filterTaskList();
+})
+const priorityFilter = document.querySelector('#priorityFilter');
+priorityFilter.addEventListener('change', (e)=>{
+    filterTaskList();
+});
 
 
 async function init() {
@@ -196,15 +231,25 @@ async function init() {
     document.querySelector('#taskForm').addEventListener('submit', handleFormSubmit);
 
     const tasks = await getAllTasks();
-    console.log(tasks);
+    // console.log(tasks);
+
     const todoTasks = filterTasksByStatus(tasks, 'To Do');
     const inProgress = filterTasksByStatus(tasks, 'In Progress');
     const completedTasks = filterTasksByStatus(tasks, 'Done');
+
+
+
+
+    // const filteredTasks = filterTaskList();
+
+    // renderTasks(filteredTasks, "");
+
     renderTasks(todoTasks, 'To Do');
     renderTasks(inProgress, 'In Progress');
     renderTasks(completedTasks, 'Done');
     // console.log(todoTasks, inProgress, completedTasks);
 }
+
 
 
 init();

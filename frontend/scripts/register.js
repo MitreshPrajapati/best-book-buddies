@@ -1,4 +1,5 @@
 
+const BASEURL = "https://best-book-buddies.onrender.com"
 
 
 const handleFormSubmit = async (e) => {
@@ -9,7 +10,7 @@ const handleFormSubmit = async (e) => {
     try {
         let payload = JSON.stringify({ email, password });
 
-        const response = await fetch('http://localhost:8090/users/register', {
+        const response = await fetch(`${BASEURL}/register`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

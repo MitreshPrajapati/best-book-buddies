@@ -48,7 +48,7 @@
       </form>
 
       <div id="taskList">
-        <div class="taskContainer" >
+        <div class="taskContainer">
           <h3>To Do</h3>
           <div class="listContainer" id="todo"></div>
         </div>
@@ -62,8 +62,26 @@
         </div>
       </div>
 
-      <div class="filterList">
-        
+      <div id="byfilters">
+        <div id="filters">
+          <select  id="priorityFilter">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+        <div id="filters">
+          <select  id="statusFilter">
+            <option value="ToDo">To Do</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+
+
+        <div id="filterList">
+           
+        </div>
       </div>
     </div>
     <script src="./scripts/index.js"></script>
