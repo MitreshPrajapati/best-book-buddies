@@ -65,7 +65,6 @@ Develop the following RESTful API endpoints to manage task and user data:
 - User Authentication:
     - `POST /users/register` - Register new users.
     - `POST /users/login` - Authenticate users and return a JWT.
-    - `POST /users/logout` - Log out users and invalidate tokens.
 - Task Management:
     - `POST /tasks` - Create a new task.
     - `GET /tasks` - Retrieve all tasks.
