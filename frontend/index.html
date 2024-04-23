@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="./styles/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="heading">Task Manager</h1>
+      <div class="logout">
+        <button id="logoutBtn">Logout</button>
+      </div>
+
+      <form id="taskForm">
+        <div class="wrapper">
+          <label for="title">Task</label>
+          <input type="text" id="title" placeholder="Title" required />
+        </div>
+        <div class="wrapper">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Description"></textarea>
+        </div>
+
+        <div class="wrapper">
+          <label for="dueDate">Due Date</label>
+          <input type="date" id="dueDate" />
+        </div>
+        <div class="wrapper">
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+        <div class="wrapper">
+          <label for="priority">Priority</label>
+          <select id="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <button type="submit">Add Task</button>
+      </form>
+
+      <div id="taskList">
+        <div class="taskContainer" >
+          <h3>To Do</h3>
+          <div class="listContainer" id="todo"></div>
+        </div>
+        <div class="taskContainer">
+          <h3>In Progress</h3>
+          <div class="listContainer" id="inProgress"></div>
+        </div>
+        <div class="taskContainer">
+          <h3>Done</h3>
+          <div class="listContainer" id="done"></div>
+        </div>
+      </div>
+
+      <div class="filterList">
+        
+      </div>
+    </div>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
