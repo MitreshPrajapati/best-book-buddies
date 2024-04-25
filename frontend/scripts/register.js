@@ -9,8 +9,9 @@ const handleFormSubmit = async (e) => {
 
     try {
         let payload = JSON.stringify({ email, password });
+        console.log(payload);
 
-        const response = await fetch(`${BASEURL}/register`, {
+        const response = await fetch(`${BASEURL}/users/register`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +19,7 @@ const handleFormSubmit = async (e) => {
             },
             body: payload
         });
-
+console.log(response);
         const data = await response.json();
         if (response.ok) {
             alert("User registered successfully")

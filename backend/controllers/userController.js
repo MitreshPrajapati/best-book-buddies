@@ -10,7 +10,7 @@ const registerUser = async (req, res) => {
     if (isExists) {
         res.send({ message: "User already exists, Please Login" });
     } else {
-        bcrypt.hash(password, Number(process.env.ROUND), async function (err, hashedPassword) {
+        bcrypt.hash(password, Number(process.env.ROUNDS), async function (err, hashedPassword) {
             if (err) {
                 res.send({ message: err.message });
             } else {
